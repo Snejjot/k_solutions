@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Тестовый сервис</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <style>
+        .row {
+            padding-top: 10px;
+        }
+    </style>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h2>Тестовый сервис</h2>
+    <hr>
+    {{ Message }}
+
+    <form method="post" action="/formpost">
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="paymentValue"> Сумма оплаты:</label>
+            </div>
+            <div class="col-sm-4">
+                <input class="form-control" type="number" id="paymentValue"  name="paymentValue" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="currency"> Валюта оплаты:</label>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-control" id="currency" name="currency">
+                    <option value="EUR" selected>&#8364 (EUR)</option>
+                    <option value="USD">$ (USD)</option>
+                    <option value="RUB">&#8381 (RUB)</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="description">Описание товара</label>
+            </div>
+            <div class="col-sm-4">
+                <textarea class="form-control" rows="5" id="description" name="description" required>
+                </textarea>
+            </div>
+        </div>
+        <div class="row">
+            <button class=" btn btn-primary" type="submit"> Оплатить</button>
+        </div>
+
+
+    </form>
+</div>
+
+</body>
+</html>

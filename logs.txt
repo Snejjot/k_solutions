@@ -1,0 +1,3 @@
+Currency, Sum, Date/Time, Description, Identifier
+USD,432,2019-01-24 14:37:14.462470,rerererere,123465
+USD,432,2019-01-24 14:37:18.005661,rerererere,123465
