@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6640170e-aa46-402e-8fce-2f871cb56646" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solution.py" beforeDir="false" afterPath="$PROJECT_DIR$/solution.py" afterDir="false" />
-    </list>
+    <list default="true" id="6640170e-aa46-402e-8fce-2f871cb56646" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +109,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="221" />
     <option name="y" value="78" />
     <option name="width" value="1533" />
@@ -211,7 +208,7 @@
       <workItem from="1548266115771" duration="2262000" />
       <workItem from="1548316956075" duration="12565000" />
       <workItem from="1548329567058" duration="3382000" />
-      <workItem from="1548333657563" duration="3117000" />
+      <workItem from="1548333657563" duration="3768000" />
     </task>
     <task id="LOCAL-00001" summary="2">
       <created>1548200716191</created>
@@ -255,11 +252,18 @@
       <option name="project" value="LOCAL" />
       <updated>1548333817969</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Test Service">
+      <created>1548337549185</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1548337549185</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36318000" />
+    <option name="totallyTimeSpent" value="36969000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="221" y="78" width="1533" height="982" extended-state="0" />
