@@ -26,51 +26,45 @@ def formpost():
 	Receives form in request and provide payment rules on this basis
 	:return: http response object
 	"""
-	if (len(request.form["paymentValue"]) > 1):
-		redirectLink = "empty"
-		#  Logfile write payment (В ореальном мире этот лог нужно писать еще и при подтверждении оплаты)
-		with open("logs.txt", "a") as logFile:
-			logFile.write('\n'+str(request.form['currency']) + ',' +
-			              str(request.form['paymentValue']) + ',' +
-			              str(datetime.datetime.now()) + ',' +
-			              str(request.form['description'].strip()) + ',' +
-			              str(dataDefault["shop_order_id"])
-			              )
+	redirectLink = "empty"
+	#  Logfile write payment (В ореальном мире этот лог нужно писать еще и при подтверждении оплаты)
+	with open("logs.txt", "a") as logFile:
+		logFile.write('\n'+str(request.form['currency']) + ',' +
+		              str(request.form['paymentValue']) + ',' +
+		              str(datetime.datetime.now()) + ',' +
+		              str(request.form['description'].strip()) + ',' +
+		              str(dataDefault["shop_order_id"])
+		              )
+	try:
+		if (request.form["currency"] == "EUR"):
+			data = {"amount": str(request.form["paymentValue"]),
+			        "currency": currency["EUR"]
+			        }
+			data.update(dataDefault)
+			requestData = requestCreate(data)
+			requestData["description"] = request.form["description"].strip()
+			return redirect(urls["Pay"]+"?" + urlencode(requestData))
+		elif (request.form["currency"] == "USD"):
+			data = {"payer_currency": currency["USD"],
+			        "shop_amount":str(request.form["paymentValue"]),
+			        "shop_currency":currency["USD"],
+			        }
+			data.update(dataDefault)
+			requestData = requestCreate(data)
+			response = requests.post(urls["Bill"], json=requestData)
+			redirectLink = response.json()["data"]["url"]
 		
-		try:
-			if (request.form["currency"] == "EUR"):
-				data = {"amount": str(request.form["paymentValue"]),
-				        "currency": currency["EUR"]
-				        }
-				data.update(dataDefault)
-				requestData = requestCreate(data)
-				requestData["description"] = request.form["description"].strip()
-				return redirect(urls["Pay"]+"?" + urlencode(requestData))
-			elif (request.form["currency"] == "USD"):
-				data = {"payer_currency": currency["USD"],
-				        "shop_amount":str(request.form["paymentValue"]),
-				        "shop_currency":currency["USD"],
-				        }
-				data.update(dataDefault)
-				requestData = requestCreate(data)
-				response = requests.post(urls["Bill"], json=requestData)
-				redirectLink = response.json()["data"]["url"]
-			
-			elif (request.form["currency"] == "RUB"):
-				data = {"amount": str(request.form["paymentValue"]),
-				        "currency": currency["RUB"],
-				        "payway": "payeer_rub",
-				        }
-				data.update(dataDefault)
-				requestData = requestCreate(data)
-				response = requests.post(urls["Invoice"], json=requestData)
-				redirectLink = response.json()["data"]["data"]["referer"]
-		except Exception as e:
-			pass
-	else:
-		Message = "Сумма к оплате не указана"
-		return render_template("main.html", {"Message": Message})
-	
+		elif (request.form["currency"] == "RUB"):
+			data = {"amount": str(request.form["paymentValue"]),
+			        "currency": currency["RUB"],
+			        "payway": "payeer_rub",
+			        }
+			data.update(dataDefault)
+			requestData = requestCreate(data)
+			response = requests.post(urls["Invoice"], json=requestData)
+			redirectLink = response.json()["data"]["data"]["referer"]
+	except Exception as e:
+		pass
 	return redirect(redirectLink)
 
 
@@ -78,7 +72,7 @@ def hashGeneretor(inputString):
 	"""
 	Create hash from input string sequence
 	:param inputString:
-	:return: hash
+	:return: hashString
 	"""
 	return hashlib.sha256(inputString.encode('utf-8')).hexdigest()
 
@@ -88,14 +82,14 @@ def requestCreate(data):
 	:param data:
 	:return: dict with required for request data
 	"""
-	sorted_string = ""
+	sortedString = ""
 	requestData = {}
 	for key in sorted(data):
-		sorted_string = sorted_string + ("" if len(sorted_string) == 0 else ":") + str(data[key])
+		sortedString = sortedString + ("" if len(sortedString) == 0 else ":") + str(data[key])
 		requestData[key] = data[key]
-	hashingSequence = (sorted_string + secret)
-	hash = hashGeneretor(hashingSequence)
-	requestData.update({"sign":hash})
+	hashingSequence = (sortedString + secret)
+	hashString = hashGeneretor(hashingSequence)
+	requestData.update({"sign":hashString})
 	return requestData
 
 
